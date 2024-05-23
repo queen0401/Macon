@@ -18,9 +18,12 @@ import seaborn as sns
 import numpy as np
 
 batch_size = 32
-dataset = torch.load('data/embeddings/prottrans_embedding_013.pt')
-
-loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+# dataset = torch.load('data/embeddings/prottrans_embedding_013.pt')
+dataset = torch.load('data/embeddings/prottrans_embedding.pt')
+filtered_dataset = [(mut0, mut1, par0, labels) for mut0, mut1, par0, labels in dataset if labels != torch.tensor(2)]
+print(len(filtered_dataset))
+loader = DataLoader(filtered_dataset, batch_size=batch_size, shuffle=True)
+# loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
