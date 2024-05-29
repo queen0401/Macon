@@ -1,9 +1,7 @@
 #@title Import dependencies and check whether GPU is available. { display-mode: "form" }
-from transformers import BertModel, BertTokenizer
+from transformers import AutoTokenizer, EsmModel
 import torch
 import torch.nn.functional as F
-import h5py
-import time
 import pandas as pd
 import os
 import numpy as np
@@ -13,10 +11,10 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using {}".format(device))
 
 def get_Bert_model():
-    model = BertModel.from_pretrained("model/prot_bert")
+    model = EsmModel.from_pretrained("model/esm2_t33_650M_UR50D")
     model = model.to(device) # move model to GPU
     model = model.eval() # set model to evaluation model
-    tokenizer = BertTokenizer.from_pretrained("model/prot_bert", do_lower_case=False )
+    tokenizer = AutoTokenizer.from_pretrained("model/esm2_t33_650M_UR50D", do_lower_case=False )
 
     return model, tokenizer
 model, tokenizer = get_Bert_model()
@@ -56,7 +54,7 @@ def prottrans_embedding(sequence):
 # embedding_df['mut0']= df['mut0'].apply(prottrans_embedding)
 # embedding_df.to_csv('data/embeddings/prottrans_embedding.csv')
 dataset = []
-filename = 'data/embeddings/protbert_embedding.pt'
+filename = 'data/embeddings/Esm2_embedding.pt'
 for i in tqdm(range(0, len(df))):
     pos = int(df.loc[i, 'Feature range(s)'][0].split('-')[0])
     mut0_emb = prottrans_embedding(df['mut0'][i])[0].astype(np.float32)
@@ -72,11 +70,5 @@ for i in tqdm(range(0, len(df))):
     entry = (torch.tensor(mut0_emb), torch.tensor(mut1_emb), torch.tensor(par0_emb), torch.tensor(df['label'][i]))
     dataset.append(entry)
 
-if os.path.exists(filename):
-    existing_data = torch.load(filename)  # 加载已有数据
-    dataset = existing_data + dataset            # 追加新数据
-    torch.save(dataset, filename) 
-    dataset = []
-else:    
-    torch.save(dataset, filename) 
+torch.save(dataset, filename) 
     

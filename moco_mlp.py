@@ -15,7 +15,6 @@ import matplotlib.pyplot as plt
 from math import sqrt
 import seaborn as sns
 import numpy as np
-print('1')
 batch_size = 32
 dataset = torch.load('data/embeddings/protbert_embedding.pt')
 filtered_dataset = [(mut0, mut1, par0, labels) for mut0, mut1, par0, labels in dataset if labels != torch.tensor(2)]
@@ -24,7 +23,7 @@ loader = DataLoader(filtered_dataset, batch_size=batch_size, shuffle=True)
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+print('device:',device)
 class SequenceModel(nn.Module):
     def __init__(self, input_size):
         super(SequenceModel, self).__init__()
@@ -83,7 +82,7 @@ optimizer = optim.Adam(f_q.parameters(), lr = 0.001)
 contrastive_loss = ContrastiveLoss()
 
 epoch_losses = []
-num_epochs = 100
+num_epochs = 50
 for epoch in range(num_epochs):
     total_loss = 0.0
     for mut0, mut1, par0, labels in loader:
@@ -124,7 +123,7 @@ for epoch in range(num_epochs):
         best_loss = average_loss
     if average_loss < best_loss:
         best_loss = average_loss
-        torch.save(f_q.state_dict(), 'model/contrastive_model_CNN_protbert.pth')
+        torch.save(f_q.state_dict(), 'model/contrastive_model_protbert.pth')
 
 
 # plt.figure(figsize=(10, 5))

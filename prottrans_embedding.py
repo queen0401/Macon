@@ -13,10 +13,10 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using {}".format(device))
 
 def get_T5_model():
-    model = T5EncoderModel.from_pretrained("prot_t5_xl_half_uniref50-enc")
+    model = T5EncoderModel.from_pretrained("model/prot_t5_xl_half_uniref50-enc")
     model = model.to(device) # move model to GPU
     model = model.eval() # set model to evaluation model
-    tokenizer = T5Tokenizer.from_pretrained('prot_t5_xl_half_uniref50-enc', do_lower_case=False)
+    tokenizer = T5Tokenizer.from_pretrained('model/prot_t5_xl_half_uniref50-enc', do_lower_case=False)
 
     return model, tokenizer
 model, tokenizer = get_T5_model()

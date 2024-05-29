@@ -236,8 +236,8 @@ class SequenceModel(nn.Module):
         self.fc1 = nn.Linear(64 * 320, 1024)
         self.fc2 = nn.Linear(1024 * 2, 256)
         self.fc3 = nn.Linear(256, num_classes)
-        self.norm_x = nn.LayerNorm(1024)  # 对x进行归一化
-        self.norm_x_emb = nn.LayerNorm(1024)  # 对x_emb进行归一化
+        self.norm_x = nn.LayerNorm(1024)
+        self.norm_x_emb = nn.LayerNorm(1024) 
         
     def forward(self, x, x_emb):
         x = x.permute(0, 2, 1)
@@ -280,7 +280,7 @@ min_delta = 0.001
 metrics = {'accuracy': [], 'precision': [], 'recall': [], 'f1': []}
 kf = KFold(n_splits=5, shuffle=True, random_state=0)
 
-dataset = torch.load('data/embeddings/prottrans_embedding.pt')
+dataset = torch.load('data/embeddings/protbert_embedding.pt')
 for fold, (train_idx, test_val_idx) in enumerate(kf.split(dataset), 1):
     # 分割测试集和训练+验证集
     test_val_subset = Subset(dataset, test_val_idx)
