@@ -1,4 +1,3 @@
-#@title Import dependencies and check whether GPU is available. { display-mode: "form" }
 from transformers import BertModel, BertTokenizer
 import torch
 import torch.nn.functional as F
@@ -28,13 +27,12 @@ def one_hot_encode_protein_sequence(sequence):
     amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     aa_to_index = {aa: i for i, aa in enumerate(amino_acids)}
     one_hot_matrix = np.zeros((len(sequence), len(amino_acids)))
-    
-    # 填充One-Hot矩阵
+
     for i, aa in enumerate(sequence):
         if aa in aa_to_index:
             one_hot_matrix[i, aa_to_index[aa]] = 1
         else:
-            raise ValueError(f"未知的氨基酸：{aa}")
+            raise ValueError(f"Unknown aa：{aa}")
     
     return one_hot_matrix
 
