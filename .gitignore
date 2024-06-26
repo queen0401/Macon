@@ -159,7 +159,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-data/
-model/
-prot_bert/
-prot_t5_xl_half_uniref50-enc/
+data/*
+model/*
