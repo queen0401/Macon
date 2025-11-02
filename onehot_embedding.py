@@ -1,8 +1,5 @@
-from transformers import BertModel, BertTokenizer
 import torch
 import torch.nn.functional as F
-import h5py
-import time
 import pandas as pd
 import os
 import numpy as np

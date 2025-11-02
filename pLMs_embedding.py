@@ -3,7 +3,6 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 from transformers import T5EncoderModel, T5Tokenizer, BertModel, BertTokenizer, AutoTokenizer, EsmModel
 import torch
 import torch.nn.functional as F
-import time
 import pandas as pd
 import numpy as np
 from tqdm import tqdm

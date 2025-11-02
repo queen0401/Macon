@@ -4,17 +4,10 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torchvision.transforms import ToTensor
-from torchvision.datasets import CIFAR10
-from torchvision.models import resnet50
-from torch.utils.data import DataLoader, Dataset, random_split, Subset
+from torch.utils.data import DataLoader, random_split, Subset
 import torch.nn.functional as F
-from torchvision import transforms
-import pandas as pd
-import math
+import os
 from tqdm import tqdm
-import matplotlib.pyplot as plt 
-from math import sqrt
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import KFold
 import numpy as np
