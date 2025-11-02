@@ -217,7 +217,7 @@ for fold, (train_idx, test_val_idx) in enumerate(kf.split(dataset), 1):
         def plot_tsne(tsne_embeddings, labels, save_name):
             plt.figure(figsize=(10, 8))
 
-            colors = ["#c957db", "#dd5f57", "#57db30", "#5784db"]
+            colors = ["#015493", "#019092", "#999999", "#f4a99b"]
             class_names = ['increasing', 'decreasing', 'disrupting', 'no effect']
             
             for i in range(4):

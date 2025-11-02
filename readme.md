@@ -23,13 +23,4 @@ We introduce Macon, a novel approach utilizing contrastive learning to enhance p
 
 ## Installation
 
-Please ensure you have the following dependencies installed:
-
-- Python 3.8+
-- pandas
-- numpy
-- scikit-learn
-- tensorflow or pytorch
-- matplotlib
-- seaborn
-- jupyter
+conda env create -f environment.yml
